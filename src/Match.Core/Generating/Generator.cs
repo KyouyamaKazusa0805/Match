@@ -20,7 +20,7 @@ public static class Generator
 	/// <param name="cancellationToken">The cancellation token that can cancel the current operation.</param>
 	/// <returns>A <see cref="Grid"/> result; or <see langword="null"/> if cancelled.</returns>
 	/// <exception cref="InvalidOperationException">Throws when the argument is invalid.</exception>
-	public static Grid? Generate(int rows, int columns, ItemIndex itemsCount, CancellationToken cancellationToken = default)
+	public static Grid Generate(int rows, int columns, ItemIndex itemsCount, CancellationToken cancellationToken = default)
 	{
 		if (itemsCount << 1 > rows * columns)
 		{
@@ -76,7 +76,7 @@ public static class Generator
 				break;
 			}
 		}
-		return null;
+		return null!;
 
 
 		static ReadOnlySpan<int> b(BitArray bitArray, int startIndex)
