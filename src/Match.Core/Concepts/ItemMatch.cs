@@ -13,6 +13,22 @@ public sealed record ItemMatch(Coordinate Start, Coordinate End, params Coordina
 	/// </summary>
 	public int TurningCount => Interims.Length;
 
+	/// <summary>
+	/// Indicates the distance of the match.
+	/// </summary>
+	public int Distance
+	{
+		get
+		{
+			return length(Start, Interims[0]) + length(Interims[0], Interims[1]) + length(Interims[1], End);
+
+
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			static int length(Coordinate coordinate1, Coordinate coordinate2)
+				=> Math.Abs(coordinate1.X - coordinate2.X) + Math.Abs(coordinate1.Y - coordinate2.Y);
+		}
+	}
+
 
 	[SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
 	private bool PrintMembers(StringBuilder builder)

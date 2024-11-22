@@ -222,6 +222,9 @@
         <member name="M:Match.Concepts.Grid.ToString">
             <inheritdoc/>
         </member>
+        <member name="M:Match.Concepts.Grid.ToString(System.String)">
+            <inheritdoc cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)"/>
+        </member>
         <member name="M:Match.Concepts.Grid.GetAllMatches">
             <summary>
             Try to find all possible steps appeared in the grid; if no steps found, an empty array will be returned.
@@ -242,6 +245,9 @@
             <exception cref="T:System.InvalidOperationException">Throws when the grid is invalid.</exception>
         </member>
         <member name="M:Match.Concepts.Grid.System#ICloneable#Clone">
+            <inheritdoc/>
+        </member>
+        <member name="M:Match.Concepts.Grid.System#IFormattable#ToString(System.String,System.IFormatProvider)">
             <inheritdoc/>
         </member>
         <member name="M:Match.Concepts.Grid.System#Collections#IEnumerable#GetEnumerator">
@@ -340,6 +346,11 @@
         <member name="P:Match.Concepts.ItemMatch.TurningCount">
             <summary>
             Indicates the number of turning.
+            </summary>
+        </member>
+        <member name="P:Match.Concepts.ItemMatch.Distance">
+            <summary>
+            Indicates the distance of the match.
             </summary>
         </member>
         <member name="T:Match.Generating.Generator">
