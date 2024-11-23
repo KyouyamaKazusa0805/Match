@@ -1,12 +1,12 @@
-# Match
+# 连连看游戏
 
-A project that can operate with match game (finding a pair of same cards in a matrix with links not turning > 2 times).
+提供一组 API 可以操作连连看游戏（一种中国盛行的益智游戏，类似麻将匹配，不过是平面的，且需要找出盘面里可消除的一对相同元素，且必须在不超过两次拐弯就能互相看见的才行）。
 
-## Usage
+## 使用方式
 
-### Generate a puzzle
+### 生成一个题目
 
-To generate a puzzle, you can use `Generator.Generate` to create a new puzzle:
+如果要出一个题目，请使用 `Generator.Generate` 方法来出题：
 
 ```csharp
 using System;
@@ -16,7 +16,7 @@ var grid = Generator.Generate(10, 10, 30);
 Console.WriteLine(grid.ToString());
 ```
 
-A generated puzzle can be:
+一个生成的题目如下：
 
 ```text
 [
@@ -33,19 +33,17 @@ A generated puzzle can be:
 ]
 ```
 
-### Provide suggestions of paired items
+### 寻求盘面的可用步骤
 
-You can directly use methods  inside `Grid` to fetch suggestions:
+你可以使用 `Grid` 类型里的 `GetAllMatches`、`GetMatch` 和 `TryGetMatch` 来获得可用步骤：
 
 ```csharp
 using System;
 using Match.Concepts;
 
-// To parse a puzzle.
-// Due to design of API, size is a required information to calculate a puzzle.
-// You can append "size marker" before the grid string, and the format is "<row>:<column>:<grid-data>".
-// Please note that, "<grid-data>" part may not require a multi-line string.
-// You can just use a single-line string as a valid input.
+// 使用字符串解析一个题目。
+// 由于游戏的设计，你需要在盘面的序列之前加上一个尺寸记号，格式是“<行数>:<列数>:<盘面数据>”。
+// 不过，因为有给予行列数，所以盘面的数据可以不换行。
 var grid = Grid.Parse(
 	"""
 	10:10:[
@@ -62,9 +60,9 @@ var grid = Grid.Parse(
 	]
 	""");
 
-// To fetch suggestions, use methods 'GetAllMatches', 'TryGetMatch' or 'GetMatch'.
-// 'GetAllMatches' will return all possible matches appeared in the current grid,
-// while 'TryGetMatch' and 'GetMatch' only returns the first found suggestion.
+// 你可以通过 'GetAllMatches'、'TryGetMatch' 和 'GetMatch' 来获取可用步骤。
+// 不过，'GetAllMatches' 是获取全部的可用步骤，
+// 而 'TryGetMatch' 和 'GetMatch' 只返回一个找到的步骤。
 var matches = grid.GetAllMatches();
 foreach (var match in matches)
 {
@@ -72,7 +70,7 @@ foreach (var match in matches)
 }
 ```
 
-All found matches are:
+全部找到的步骤如下：
 
 ```text
 ItemMatch { Start = Coordinate { X = 6, Y = 5 }, End = Coordinate { X = 6, Y = 6 }, Interims = [] }
