@@ -21,7 +21,7 @@ public readonly ref struct Generator
 	[DoesNotReturn]
 	public override int GetHashCode() => throw new NotSupportedException();
 
-	/// <inheritdoc cref="ReadOnlySpan{T}.ToString"/>
+	/// <inheritdoc cref="ReadOnlySpan{T}.Equals"/>
 	[Obsolete("This method is hidden on purpose.", true)]
 	[DoesNotReturn]
 	public override string ToString() => throw new NotSupportedException();

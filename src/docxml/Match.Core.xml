@@ -379,7 +379,7 @@
             <inheritdoc cref="M:System.ReadOnlySpan`1.GetHashCode"/>
         </member>
         <member name="M:Match.Generating.Generator.ToString">
-            <inheritdoc cref="M:System.ReadOnlySpan`1.ToString"/>
+            <inheritdoc cref="M:System.ReadOnlySpan`1.Equals(System.Object)"/>
         </member>
         <member name="M:Match.Generating.Generator.Generate(System.Int32,System.Int32,System.Byte,System.Threading.CancellationToken)">
             <summary>
