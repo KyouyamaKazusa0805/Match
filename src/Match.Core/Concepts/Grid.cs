@@ -355,8 +355,8 @@ public sealed partial class Grid :
 					}
 					else
 					{
-						var path0 = lengthSum(coordinate1, coordinate2, [interims[0], interims[1]]);
-						var path1 = lengthSum(coordinate1, coordinate2, [temp0, temp1]);
+						var path0 = new ItemMatch(coordinate1, coordinate2, interims[0], interims[1]).Distance;
+						var path1 = new ItemMatch(coordinate1, coordinate2, temp0, temp1).Distance;
 						if (path1 < path0)
 						{
 							interims = [temp0, temp1];
@@ -372,8 +372,8 @@ public sealed partial class Grid :
 					}
 					else
 					{
-						var path0 = lengthSum(coordinate1, coordinate2, [interims[0], interims[1]]);
-						var path1 = lengthSum(coordinate1, coordinate2, [temp0, temp1]);
+						var path0 = new ItemMatch(coordinate1, coordinate2, interims[0], interims[1]).Distance;
+						var path1 = new ItemMatch(coordinate1, coordinate2, temp0, temp1).Distance;
 						if (path1 < path0)
 						{
 							interims = [temp0, temp1];
@@ -390,14 +390,6 @@ public sealed partial class Grid :
 		}
 		return true;
 
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static int length(Coordinate coordinate1, Coordinate coordinate2)
-			=> Math.Abs(coordinate1.X - coordinate2.X) + Math.Abs(coordinate1.Y - coordinate2.Y);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static int lengthSum(Coordinate coordinate1, Coordinate coordinate2, ReadOnlySpan<Coordinate> interims)
-			=> length(coordinate1, interims[0]) + length(interims[0], interims[1]) + length(interims[1], coordinate2);
 
 		bool checkType1(
 			Coordinate coordinate1,
