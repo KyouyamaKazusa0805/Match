@@ -21,7 +21,7 @@ public sealed partial class Grid :
 	/// <summary>
 	/// Indicates the empty cell value.
 	/// </summary>
-	public const ItemIndex EmptyCellValue = ItemIndex.MaxValue;
+	public const ItemIndex EmptyKey = ItemIndex.MaxValue;
 
 
 	/// <summary>
@@ -47,7 +47,17 @@ public sealed partial class Grid :
 	/// <summary>
 	/// Indicates whether the grid is empty.
 	/// </summary>
-	public bool IsEmpty => this == Empty;
+	public bool IsEmpty
+	{
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		get
+		{
+			// To check whether a puzzle is empty, just check all values are equal to 255 ('EmptyKey').
+			var sequence = new ItemIndex[RowsLength * ColumnsLength].AsSpan();
+			sequence.Fill(EmptyKey);
+			return _array.AsSpan().SequenceEqual(sequence);
+		}
+	}
 
 	/// <summary>
 	/// Indicates whether the grid pattern is valid to be checked.
@@ -138,6 +148,13 @@ public sealed partial class Grid :
 	private static partial Regex Pattern { get; }
 
 
+	/// <summary>
+	/// Apply a match, removing the pair of cells from the grid, making those two cells empty.
+	/// </summary>
+	/// <param name="match">The match to be applied.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void Apply(ItemMatch match) => this[match.Start] = this[match.End] = EmptyKey;
+
 	/// <inheritdoc/>
 	public override bool Equals([NotNullWhen(true)] object? obj) => Equals(obj as Grid);
 
@@ -153,7 +170,7 @@ public sealed partial class Grid :
 	{
 		foreach (var (key, coordinates) in ItemsSet)
 		{
-			if (key == EmptyCellValue)
+			if (key == EmptyKey)
 			{
 				continue;
 			}
@@ -445,7 +462,7 @@ public sealed partial class Grid :
 	/// <param name="coordinate">The coordinate.</param>
 	/// <returns>A <see cref="bool"/> result indicating that.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public bool Blocks(Coordinate coordinate) => !IsCoordinateOutOfBound(coordinate) && this[coordinate] != EmptyCellValue;
+	public bool Blocks(Coordinate coordinate) => !IsCoordinateOutOfBound(coordinate) && this[coordinate] != EmptyKey;
 
 	/// <summary>
 	/// Determine whether the current coordinate is out of bound.
@@ -492,7 +509,7 @@ public sealed partial class Grid :
 		var result = new List<ItemMatch>();
 		foreach (var (key, coordinates) in ItemsSet)
 		{
-			if (key == EmptyCellValue)
+			if (key == EmptyKey)
 			{
 				continue;
 			}

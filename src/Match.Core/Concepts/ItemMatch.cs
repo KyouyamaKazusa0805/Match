@@ -20,7 +20,15 @@ public sealed record ItemMatch(Coordinate Start, Coordinate End, params Coordina
 	{
 		get
 		{
-			return length(Start, Interims[0]) + length(Interims[0], Interims[1]) + length(Interims[1], End);
+#pragma warning disable format
+			return Interims switch
+			{
+				[var a, var b] => length(Start, a) + length(a, b) + length(b, End),
+				[var a] => length(Start, a) + length(a, End),
+				[] => length(Start, End),
+				_ => throw new InvalidOperationException("The internal data is invalid.")
+			};
+#pragma warning restore format
 
 
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -30,6 +38,18 @@ public sealed record ItemMatch(Coordinate Start, Coordinate End, params Coordina
 	}
 
 
+	/// <inheritdoc cref="object.ToString"/>
+	public string ToFullString()
+	{
+		var interimsString = Interims switch
+		{
+			[var (ax, ay), var (bx, by)] => $", interims [{(ax, ay)}, {(bx, by)}]",
+			[var (ax, ay)] => $", interims [{(ax, ay)}]",
+			_ => string.Empty
+		};
+		return $"{(Start.X, Start.Y)} <-> {(End.X, End.Y)}{interimsString}";
+	}
+
 	[SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
 	private bool PrintMembers(StringBuilder builder)
 	{
@@ -37,16 +57,19 @@ public sealed record ItemMatch(Coordinate Start, Coordinate End, params Coordina
 		builder.Append(Start);
 		builder.Append($", {nameof(End)} = ");
 		builder.Append(End);
-		builder.Append($", {nameof(Interims)} = [");
-		for (var i = 0; i < Interims.Length; i++)
+		if (Interims.Length != 0)
 		{
-			builder.Append(Interims[i].ToString());
-			if (i != Interims.Length - 1)
+			builder.Append($", {nameof(Interims)} = [");
+			for (var i = 0; i < Interims.Length; i++)
 			{
-				builder.Append(", ");
+				builder.Append(Interims[i].ToString());
+				if (i != Interims.Length - 1)
+				{
+					builder.Append(", ");
+				}
 			}
+			builder.Append(']');
 		}
-		builder.Append(']');
 		return true;
 	}
 }

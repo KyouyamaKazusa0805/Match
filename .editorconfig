@@ -75,7 +75,7 @@ csharp_style_prefer_method_group_conversion = true:silent
 csharp_style_prefer_top_level_statements = true:silent
 csharp_style_prefer_primary_constructors = true:suggestion
 csharp_prefer_system_threading_lock = true:suggestion
-csharp_style_expression_bodied_methods = false:silent
+csharp_style_expression_bodied_methods = true:silent
 csharp_style_expression_bodied_constructors = false:silent
 csharp_style_expression_bodied_operators = false:silent
 csharp_style_expression_bodied_properties = true:silent
@@ -86,3 +86,14 @@ csharp_style_expression_bodied_local_functions = true:suggestion
 csharp_indent_labels = one_less_than_current
 csharp_space_around_binary_operators = before_and_after
 csharp_indent_case_contents_when_block = false
+
+
+# CS0809: Obsolete member overrides non-obsolete member
+dotnet_diagnostic.CS0809.severity = silent
+
+# CS9193: Argument should be a variable because it is passed to a 'ref readonly' parameter
+dotnet_diagnostic.CS9193.severity = none
+
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = none

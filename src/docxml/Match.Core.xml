@@ -34,7 +34,7 @@
             Using 255 (i.e. <see cref="F:System.Byte.MaxValue"/> to describe an empty cell).
             </remarks>
         </member>
-        <member name="F:Match.Concepts.Grid.EmptyCellValue">
+        <member name="F:Match.Concepts.Grid.EmptyKey">
             <summary>
             Indicates the empty cell value.
             </summary>
@@ -134,6 +134,12 @@
             ○ Match a Unicode digit atomically at least 1 and at most 3 times.<br/>
             </code>
             </remarks>
+        </member>
+        <member name="M:Match.Concepts.Grid.Apply(Match.Concepts.ItemMatch)">
+            <summary>
+            Apply a match, removing the pair of cells from the grid, making those two cells empty.
+            </summary>
+            <param name="match">The match to be applied.</param>
         </member>
         <member name="M:Match.Concepts.Grid.Equals(System.Object)">
             <inheritdoc/>
@@ -353,6 +359,9 @@
             Indicates the distance of the match.
             </summary>
         </member>
+        <member name="M:Match.Concepts.ItemMatch.ToFullString">
+            <inheritdoc cref="M:System.Object.ToString"/>
+        </member>
         <member name="T:Match.Generating.Generator">
             <summary>
             Represents a generator.
@@ -362,6 +371,15 @@
             <summary>
             Indicates the local random number generator.
             </summary>
+        </member>
+        <member name="M:Match.Generating.Generator.Equals(System.Object)">
+            <inheritdoc cref="M:System.ReadOnlySpan`1.Equals(System.Object)"/>
+        </member>
+        <member name="M:Match.Generating.Generator.GetHashCode">
+            <inheritdoc cref="M:System.ReadOnlySpan`1.GetHashCode"/>
+        </member>
+        <member name="M:Match.Generating.Generator.ToString">
+            <inheritdoc cref="M:System.ReadOnlySpan`1.ToString"/>
         </member>
         <member name="M:Match.Generating.Generator.Generate(System.Int32,System.Int32,System.Byte,System.Threading.CancellationToken)">
             <summary>

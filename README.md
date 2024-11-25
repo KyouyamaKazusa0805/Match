@@ -12,7 +12,8 @@ To generate a puzzle, you can use `Generator.Generate` to create a new puzzle:
 using System;
 using Match.Generating;
 
-var grid = Generator.Generate(10, 10, 30);
+var generator = new Generator();
+var grid = generator.Generate(10, 10, 30);
 Console.WriteLine(grid.ToString());
 ```
 
@@ -47,20 +48,20 @@ using Match.Concepts;
 // Please note that, "<grid-data>" part may not require a multi-line string.
 // You can just use a single-line string as a valid input.
 var grid = Grid.Parse(
-	"""
-	10:10:[
-		04, 19, 29, 28, 07, 18, 09, 20, 25, 01,
-		27, 13, 04, 07, 05, 12, 27, 05, 04, 05,
-		17, 09, 11, 24, 11, 25, 13, 29, 15, 27,
-		05, 04, 14, 18, 23, 01, 15, 21, 12, 06,
-		26, 02, 06, 10, 04, 12, 09, 13, 13, 01,
-		28, 28, 03, 17, 20, 04, 23, 10, 13, 13,
-		28, 25, 04, 08, 21, 00, 00, 27, 01, 09,
-		29, 16, 22, 09, 28, 18, 09, 09, 28, 04,
-		24, 29, 01, 26, 01, 04, 09, 00, 12, 02,
-		17, 18, 03, 14, 25, 28, 16, 04, 19, 08
-	]
-	""");
+    """
+    10:10:[
+        04, 19, 29, 28, 07, 18, 09, 20, 25, 01,
+        27, 13, 04, 07, 05, 12, 27, 05, 04, 05,
+        17, 09, 11, 24, 11, 25, 13, 29, 15, 27,
+        05, 04, 14, 18, 23, 01, 15, 21, 12, 06,
+        26, 02, 06, 10, 04, 12, 09, 13, 13, 01,
+        28, 28, 03, 17, 20, 04, 23, 10, 13, 13,
+        28, 25, 04, 08, 21, 00, 00, 27, 01, 09,
+        29, 16, 22, 09, 28, 18, 09, 09, 28, 04,
+        24, 29, 01, 26, 01, 04, 09, 00, 12, 02,
+        17, 18, 03, 14, 25, 28, 16, 04, 19, 08
+    ]
+    """);
 
 // To fetch suggestions, use methods 'GetAllMatches', 'TryGetMatch' or 'GetMatch'.
 // 'GetAllMatches' will return all possible matches appeared in the current grid,
@@ -68,7 +69,7 @@ var grid = Grid.Parse(
 var matches = grid.GetAllMatches();
 foreach (var match in matches)
 {
-	Console.WriteLine(match.ToString());
+    Console.WriteLine(match.ToString());
 }
 ```
 
